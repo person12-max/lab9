@@ -10,7 +10,24 @@ int fib_recursive(int n){
   // Accumulate our result 
   return fib_recursive(n-1)+fib_recursive(n-2);
 }
+/*
+int fib_recursive(int n){
+  // base case
+  if(n < 2){
+   return 1;
+  }
+  // Some shared variables
+  int x,y;
 
+  // Accumulate our result
+  #pragma omp task shared(x) 
+  x = fib_recursive(n-1);
+  #pragma omp task shared(y)
+  y = fib_recursive(n-2);
+  #pragma omp taskwait
+  return x + y;
+}
+*/
 
 int main(){
   
