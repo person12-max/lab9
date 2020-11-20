@@ -57,6 +57,7 @@ int main(){
 
 **Answer in a sentence here:** *what your output is, and whether the expected output is what you would expect.* 
 **If you can discuss this with your current teammate or another classmate, please do.**
+
 I am getting hello(i), world(i) printed out a number of times where i is the id : This is expected because we are printing from multiple threads that have different ids, and the smallest id is 0 and the largest is 48. 
 
 #### Example 2 - For-loops
@@ -91,6 +92,7 @@ int main(){
 
 **Answer:** *Why is our output not ordered?* 
 **If you can discuss this  with your current teammate or another classmate, please do.**
+
 It is not ordered because we are using multiple threads and we don’t know what order the threads run in the for loop. 
 
 #### Example 3 - Synchronization
@@ -199,6 +201,7 @@ Note that you may not see any performance gain--why?
 
 **Answer in a sentence here:** *why there may not be any performance gain here*.  
 **If you can discuss this with your current teammate or another classmate, please do.**
+
 Because there is a lot of overhead with task creation and management that is Larter than the work being done. A possible solution to fix this could be to switch between serial and parallels implementations : Define to use parallelism over a certain threshold and use serial version if n is below that threshold. 
 
 #### Example 5 - Computing PI 3.1415....
