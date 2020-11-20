@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <omp.h>
 int length = 0;
 void swap(int arr[], int i, int j){
     int temp = arr[i];
@@ -18,31 +19,41 @@ void qSort(int arr [], int left, int right) {
         }
     }
     swap(arr,pIndex,i+1);
-    qSort(arr, left, i);
-    qSort(arr,i+2, right);
+    #pragma omp task shared(arr) firstprivate(left,i)
+    { qSort(arr, left, i);}
+    #pragma omp task shared(arr) firstprivate(right,i)
+    { qSort(arr,i+2, right);}
+    #pragma omp taskwait
 }
 void qSortFinal(int arr []) {
-    qSort(arr,0,length-1);
+   #pragma omp parallel default(none) shared(arr) firstprivate(length)
+    {
+	#pragma omp single nowait
+	{
+   	   qSort(arr,0,length-1);
+	}
+    }
 }
 void printArray(int arr[]){
-    for(int i =0 ; i < length;i++){
+    int i = 0;
+    for(i = 0 ; i < length;i++){
         printf("%d\n", arr[i]);
     }
 }
-void getLength(){
-    //FILE * in = fopen(argv[1],"r");
-    FILE * f = fopen("input.txt", "r");
+void getLength(char *argv[]){
+    FILE * f = fopen(argv[1],"r");
+//    FILE * f = fopen("input.txt", "r");
     int num = 0;
     while(fscanf(f, "%d", &num) > 0){
         length++;
     }
     fclose(f);
 }
-int main(){
-    getLength();
+int main(int argc, char *argv[]){
+    getLength(argv);
     int arr [length];
-    //FILE * in = fopen(argv[1],"r");
-    FILE * f = fopen("input.txt", "r");
+    FILE * f = fopen(argv[1],"r");
+   // FILE * f = fopen("input.txt", "r");
     int num = 0;
     int i =0;
     while(fscanf(f, "%d", &num) > 0){

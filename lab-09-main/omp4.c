@@ -1,7 +1,7 @@
 // gcc -std=c99 -fopenmp omp4.c -o omp4
 // You fill in
 #include <stdio.h>
-
+/*
 int fib_recursive(int n){
   // base case
   if(n < 2){
@@ -10,7 +10,8 @@ int fib_recursive(int n){
   // Accumulate our result 
   return fib_recursive(n-1)+fib_recursive(n-2);
 }
-/*
+*/
+
 int fib_recursive(int n){
   // base case
   if(n < 2){
@@ -27,7 +28,7 @@ int fib_recursive(int n){
   #pragma omp taskwait
   return x + y;
 }
-*/
+
 
 int main(){
   
