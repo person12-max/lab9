@@ -241,6 +241,9 @@ In general, this is a type of [Reduction](http://www.drdobbs.com/architecture-an
 
 **Discuss with your current teammate or another classmate and answer:** *What is a strategy for solving this problem? Try to avoid false sharing by adding the amount of padded bits needed programmatically*
 
+The strategy is that we use multiple threads to solve the problem where each thread will accumulate its value in its corresponding part of a sum array. 
+In the end, we can then just sum up all the values in the sum array that contains the accumulated sum information from the threads. To avoid false sharing, we can create a padding to the array block so that its a two dimensional array to guarantee that each element of the array is sitting on a different cache line. 
+
 Now implement in [omp5.c](./omp5.c) your strategy and time it: Implement your strategy and fill out the table below with how much time it takes to complete given the number of threads.  Use [omp_get_wtime()](https://www.openmp.org/spec-html/5.0/openmpsu160.html#x199-9660003.4.1).
 
 Note: You can revisit [Tim Mattson's video](https://www.youtube.com/watch?v=OuzYICZUthM&list=PLLX-Q6B8xqZ8n8bwjGdzBJ25X2utwnoEG&index=7) if you get stuck for one potential solution.
